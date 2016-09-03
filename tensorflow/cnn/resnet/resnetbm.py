@@ -97,13 +97,15 @@ def main(_):
     print '-----with device: %s'%get_device_str()
     with tf.Graph().as_default(), tf.device(get_device_str()):
         image_size = 224
-        image_shape = [FLAGS.batch_size, image_size + 3, image_size + 3, 3]
+        #image_shape = [FLAGS.batch_size, image_size + 3, image_size + 3, 3]
+        with tf.device('/cpu:0'):
+            image_shape = [FLAGS.batch_size, image_size, image_size, 3]
 
-        labels = tf.Variable(tf.ones([FLAGS.batch_size],
-                                     dtype=tf.int32))
-        images = tf.Variable(tf.random_normal(image_shape,
-                                              dtype=tf.float32,
-                                              stddev=1e-1))
+            labels = tf.Variable(tf.ones([FLAGS.batch_size],
+                                         dtype=tf.int32))
+            images = tf.Variable(tf.random_normal(image_shape,
+                                                  dtype=tf.float32,
+                                                  stddev=1e-1))
         #images, labels = distorted_inputs()
 
         logits = inference(images,

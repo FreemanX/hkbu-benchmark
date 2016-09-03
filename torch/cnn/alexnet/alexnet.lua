@@ -3,7 +3,7 @@ function alexnet(lib)
    local SpatialMaxPooling = lib[2]
    local ReLU = lib[3]
    local SpatialZeroPadding = nn.SpatialZeroPadding
-   local padding = true
+   local padding = false 
    local stride1only = false
 
    -- from https://code.google.com/p/cuda-convnet2/source/browse/layers/layers-imagenet-1gpu.cfg
@@ -30,10 +30,10 @@ function alexnet(lib)
 
    local classifier = nn.Sequential()
    classifier:add(nn.View(256*6*6))
-   classifier:add(nn.Dropout(0.5))
+   --classifier:add(nn.Dropout(0.5))
    classifier:add(nn.Linear(256*6*6, 4096))
    classifier:add(nn.Threshold(0, 1e-6))
-   classifier:add(nn.Dropout(0.5))
+   --classifier:add(nn.Dropout(0.5))
    classifier:add(nn.Linear(4096, 4096))
    classifier:add(nn.Threshold(0, 1e-6))
    classifier:add(nn.Linear(4096, 1000))

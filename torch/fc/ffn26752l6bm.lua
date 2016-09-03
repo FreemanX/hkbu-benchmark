@@ -43,7 +43,7 @@ local inputCPU = torch.randn(bsize,isize)
 local input = nil 
 local target = nil
 if opt.deviceId >= 0 then
-    input = torch.CudaTensor(inputCPU:size())
+    input = torch.Tensor(inputCPU:size()):float():cuda() -- torch.CudaTensor(inputCPU:size())
     target = torch.IntTensor(bsize):random(1,bsize):cuda()
 else
     input = torch.Tensor(inputCPU:size()):float()
