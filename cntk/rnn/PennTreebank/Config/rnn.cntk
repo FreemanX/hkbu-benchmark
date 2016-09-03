@@ -11,10 +11,10 @@ OutputDir = "$RootDir$/Output"
 ModelDir  = "$OutputDir$/Models"
 
 # deviceId=-1 for CPU, >=0 for GPU devices, "auto" chooses the best GPU, or CPU if no usable GPU is available
-epochSize=4096
+epochSize=40960
 deviceId=0 
-minibatch=256
-maxEpochs = 2 
+minibatch=4096
+maxEpochs = 3 
 
 command = train
 
@@ -28,6 +28,8 @@ modelPath  = "$ModelDir$/rnn.dnn"
 #numCPUThreads = 1
 
 confVocabSize = 10000
+shareNodeValueMatrices = true
+maxTempMemSizeInSamplesForCNN = 1
 
 trainFile = "ptb.train.txt"
 
@@ -61,8 +63,8 @@ train = [
 #            DenseLayer (labelDim)
 #        )
 
-        words = SparseInput (inputDim)
-        labels =Input (inputDim)
+        words  = if deviceId >= 0 then SparseInput (inputDim) else Input (inputDim)
+        labels = Input (inputDim)
 
         z = model(words)
 
@@ -83,10 +85,10 @@ train = [
         readerType = "CNTKTextFormatReader"
         file = "$DataDir$/$trainFile$"
         # fast but a memory hog
-        # randomize = false
+        randomize = false
         # slower but memory friendly
-        randomize = true 
-        randomizationWindow = 30000
+        #randomize = true 
+        #randomizationWindow = 30000
         traceLevel = 0
         input = [
             words  = [ alias = "S0"; dim = $confVocabSize$; format = "sparse" ]

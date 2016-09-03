@@ -97,10 +97,10 @@ DNN=[
 
     hiddenDim = 4096
     h1 = DNNReLULayer(9216, hiddenDim, pool3, fc1WScale, fc1BValue)
-    h1_d = Dropout(h1)
-    h2 = DNNReLULayer(hiddenDim, hiddenDim, h1_d, fc2WScale, fc2BValue)
-    h2_d = Dropout(h2)
-    ol = DNNLastLayer(hiddenDim, labelDim, h2_d, fc3WScale, fc3BValue)
+    #h1_d = Dropout(h1)
+    h2 = DNNReLULayer(hiddenDim, hiddenDim, h1, fc2WScale, fc2BValue)
+    #h2_d = Dropout(h2)
+    ol = DNNLastLayer(hiddenDim, labelDim, h2, fc3WScale, fc3BValue)
     
     CE = CrossEntropyWithSoftmax(labels, ol, tag = Criteria)
     Err = ErrorPrediction(labels, ol, tag = Eval)

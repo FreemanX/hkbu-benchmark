@@ -4,17 +4,17 @@ ModelDir=$WorkDir$/Output/$ConfigName$
 DataDir=/home/dl/data/cntk
 precision=float
 
-deviceId=0
-minibatchSize=1024
-epochSize=4096
-maxEpochs=2
-
 makeMode=false
 
 command=Train
 
-featureDim = 26752 
-labelDim = 26752 
+deviceId=1
+minibatchSize=1024
+epochSize=262144
+maxEpochs=2
+
+featureDim = 512
+labelDim = 1000
 hiddenDim = 2048
 
 initOnCPUOnly=true
@@ -23,14 +23,12 @@ prefetch=true
 
 Train=[
     action=train
-    modelPath=$ModelDir$/fc26752l6
-    #deviceId=1
+    modelPath=$ModelDir$/fc
     traceLevel=1
 
     SimpleNetworkBuilder=[
         #layerSizes=$featureDim$:$hiddenDim$:$hiddenDim$:$hiddenDim$:$hiddenDim$:$labelDim$
-        layerSizes=$featureDim$:$hiddenDim$:$hiddenDim$:$hiddenDim$:$hiddenDim$:$hiddenDim$:$hiddenDim$:$labelDim$
-        initOnCPUOnly=true
+        layerSizes=$featureDim$:$hiddenDim$:$hiddenDim$:$hiddenDim$:$labelDim$
         trainingCriterion=CrossEntropyWithSoftmax
         evalCriterion=ErrorPrediction
         layerTypes=Sigmoid
@@ -41,6 +39,14 @@ Train=[
     ]
     
     SGD=[
+        #epochSize=262144
+        #minibatchSize=1024
+        #learningRatesPerMB=0.01
+        #numMBsToShowResult=4
+        #momentumPerSample=0
+        #dropoutRate=0.0
+        #maxEpochs=2
+        
         epochSize=$epochSize$
         minibatchSize=$minibatchSize$
         maxEpochs=$maxEpochs$
@@ -48,14 +54,6 @@ Train=[
         numMBsToShowResult=4
         momentumPerSample=0
         dropoutRate=0.0
-
-        #epochSize=4096
-        #minibatchSize=256
-        #maxEpochs=2
-        #learningRatesPerMB=0.01
-        #numMBsToShowResult=4
-        #momentumPerSample=0
-        #dropoutRate=0.0
         
         ParallelTrain=[
             parallelizationMethod=DataParallelSGD
@@ -74,7 +72,7 @@ Train=[
 
 reader=[
     readerType=UCIFastReader
-    file=$DataDir$/data26752_4k.txt
+    file=$DataDir$/data1000.txt
     features=[
         dim=$featureDim$
         start=1
@@ -83,7 +81,7 @@ reader=[
         dim=1
         start=0
         labelDim=$labelDim$
-        labelMappingFile=$DataDir$/labelmap26752.txt
+        labelMappingFile=$DataDir$/labelmap.1K.txt
         #labelMappingFile=$WorkDir$/labelmap.txt
     ]
 ]

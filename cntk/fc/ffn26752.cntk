@@ -1,7 +1,7 @@
 WorkDir=.
 ModelDir=$WorkDir$/Output/$ConfigName$
 #stderr=$WorkDir$/logs/$ConfigName$/out
-DataDir=/home/comp/csshshi/data/cntk
+DataDir=/home/dl/data/cntk
 precision=float
 
 deviceId=0

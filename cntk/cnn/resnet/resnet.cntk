@@ -2,7 +2,7 @@ RootDir = "."
 
 ConfigDir = "$RootDir$"
 #DataDir = "$RootDir$"
-DataDir=/home/comp/csshshi/data/cntk
+DataDir=/home/dl/data/cntk
 OutputDir = "$RootDir$/Output"
 ModelDir = "$OutputDir$/Models"
 
@@ -24,7 +24,7 @@ traceLevel=1
 numMBsToShowResult=1
 initOnCPUOnly=true
 shareNodeValueMatrices=true
-maxTempMemSizeInSamplesForCNN=1
+#maxTempMemSizeInSamplesForCNN=1
 
 # Strides for increasing layers. Defaults (paper) are 2 for 1x1 and 1 for 3x3.
 stride1x1=1
