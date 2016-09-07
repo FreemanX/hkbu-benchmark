@@ -111,7 +111,7 @@ def main(_):
         logits = inference(images,
                            num_classes=1000,
                            is_training=True,
-                           bottleneck=False) # use default: resnet-50
+                           bottleneck=True) # use default: resnet-50
                            #num_blocks=[2, 2, 2, 2])
 
         train(True, logits, images, labels)
