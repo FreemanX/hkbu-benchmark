@@ -1,0 +1,20 @@
+# The train/test net protocol buffer definition
+net: "alexnet-b1024.prototxt"
+base_lr: 0.001
+
+lr_policy: "fixed"
+<<<<<<< HEAD
+#max_iter: 1953 
+max_iter: 2 
+display: 1 
+=======
+max_iter: 1993 
+display: 1
+>>>>>>> 3c734453ab68345873450f4f3285fdc77feba10f
+solver_mode: GPU 
+momentum: 0.9
+
+# covering the full 10,000 testing images.
+test_iter: 100
+# Carry out testing every 2 training epochs.
+test_interval: 99 
