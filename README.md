@@ -21,8 +21,7 @@ data directory structure:
 			│   └── ptb                     
 			├── tensorflow                  
 			│   ├── cifar10                 
-			│   ├── cifar-10-batches-py     
-			│   ├── cifar10_train           
+			│   ├   └── cifar-10-batches-bin 
 			│   ├── MNIST_data              
 			└── torch                       
 			    ├── cifar10                 
